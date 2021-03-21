@@ -24,9 +24,7 @@ export default class Board extends React.Component {
       // 渲染界面
       return (
         <div>
-          {squares.map((item) =>{
-            return item
-          })}
+          {squares}
         </div>
       )
     }

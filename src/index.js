@@ -14,8 +14,11 @@ class Game extends React.Component {
           squares: Array(9).fill(null)
         }
       ],
+      // 下一个是X 还是 O 
       xIsNext:true,
+      // 是否胜利
       winner: undefined,
+      // 步数
       stepNumber: 0
     }
   }
@@ -39,8 +42,14 @@ class Game extends React.Component {
         return squares[a]
       }
     }
+    if(this.state.history.length === 9) {
+      alert('平局了')
+      return
+    }
+    console.log(this.state.history.length);
     return null
   }
+  // 点击棋盘改变历史纪录 , 棋子是X还是O
   handleClick = (i) => {
     let step
     if(i<=3) {
@@ -55,8 +64,10 @@ class Game extends React.Component {
     const squares = current.squares.slice()
     squares[i] = this.state.xIsNext? 'X': 'O'
     const winner = this.isWinner(squares)
+    // 重新渲染
     this.setState({history: history.concat([{squares: squares, step}]), xIsNext: !this.state.xIsNext, winner})
   }
+  // 显示历史记录
   steps() {
     const Moves = this.state.history.map((step, move) => {
       const desc = move? 
@@ -70,6 +81,7 @@ class Game extends React.Component {
     })
     return Moves
   }
+  // 点击哪一项就返回到哪一步
   jumpTo(step) {
     const history = this.state.history.slice(0, step + 1)
     this.setState({
