@@ -38,8 +38,7 @@ class Game extends React.Component {
     for(let i=0;i<lines.length;i++) {
       const [a,b,c] = lines[i];
       if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        console.log('正确了');
-        return squares[a]
+        alert(`${this.state.xIsNext? 'X': 'O'}赢了`)
       }
     }
     if(this.state.history.length === 9) {
@@ -51,6 +50,9 @@ class Game extends React.Component {
   }
   // 点击棋盘改变历史纪录 , 棋子是X还是O
   handleClick = (i) => {
+    if(this.state.winner) {
+      return 
+    }
     let step
     if(i<=3) {
       step = `'第一行:', ${i+1}列`
